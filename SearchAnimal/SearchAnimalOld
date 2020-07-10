@@ -1,0 +1,53 @@
+  <?php
+   require_once('config.php');
+   $DBConnection = mysqli_connect($DBSERVER, $DBUSER, $DBPASSWORD, $DBNAME);
+   mysqli_select_db($DBConnection, $DBNAME);
+   mysqli_query($DBConnection, "SET NAMES utf8");
+   ?>
+  <!-- <!DOCTYPE html>
+  <html>
+    <head>
+        <meta charset="utf-8">
+        <title>Serch Animal</title>
+    </head>
+    <body>
+      <form align="center" action="SearchAnimal.php" method="get">
+            AnimalNumber:<br><input type="text" name="animalnumber">
+            <p>
+            <input type="submit">
+          </form>
+        <table align="center" border="1px">
+          <tr>
+            <th colspan="6"><h2>Animals Details</h2></th>
+          </tr>
+          <tr>
+            <th>Animal Number </th>
+            <th>Local Animal Number </th>
+            <th>Owner </th>
+            <th>Gender </th>
+            <th>Status Date</th>
+            <th>Status</th>
+          </tr> -->
+       <?php
+        $AnimalCheckSQL = "SELECT * FROM Animals WHERE AnimalNumber='". $_GET["animalnumber"] ."'";
+       $AnimalCheck = mysqli_query($DBConnection, $AnimalCheckSQL) ;
+        if (mysqli_affected_rows($DBConnection) > 0)
+        {
+            while ($row = mysqli_fetch_assoc($AnimalCheck))
+            {
+        ?>
+                <!-- <tr>
+                <td><?php echo $row['AnimalNumber'];?></td>
+                <td><?php echo $row['LocalAnimalNumber'];?></td>
+                <td><?php echo $row['Owner'];?></td>
+                <td><?php echo $row['Gender'];?></td>
+                <td><?php echo $row['StatusDate'];?></td>
+                <td><?php echo $row['Status'];?></td>
+              </tr> -->
+              <?php
+              }
+        }
+        ?>
+      <!-- </table>
+    </body>
+    </html> -->

@@ -1,0 +1,49 @@
+<?php
+ require_once('config.php');
+ $DBConnection = mysqli_connect($DBSERVER, $DBUSER, $DBPASSWORD, $DBNAME);
+ mysqli_select_db($DBConnection, $DBNAME);
+ mysqli_query($DBConnection, "SET NAMES utf8");
+ $AnimalCheckSQL = "SELECT * FROM Animals";
+ $AnimalCheck = mysqli_query($DBConnection, $AnimalCheckSQL) ;
+ ?>
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta charset="utf-8">
+      <title>Display Animals List</title>
+  </head>
+  <body>
+
+      <table align="center" border="1px">
+        <tr>
+          <th colspan="6"><h2>Animals Details</h2></th>
+        </tr>
+        <tr>
+          <th>Animal Number </th>
+          <th>Local Animal Number </th>
+          <th>Owner </th>
+          <th>Gender </th>
+          <th>Status Date</th>
+          <th>Status</th>
+        </tr>
+     <?php
+      if (mysqli_affected_rows($DBConnection) > 0)
+      {
+          while ($row = mysqli_fetch_assoc($AnimalCheck))
+          {
+      ?>
+              <tr>
+              <td><?php echo $row['AnimalNumber'];?></td>
+              <td><?php echo $row['LocalAnimalNumber'];?></td>
+              <td><?php echo $row['Owner'];?></td>
+              <td><?php echo $row['Gender'];?></td>
+              <td><?php echo $row['StatusDate'];?></td>
+              <td><?php echo $row['Status'];?></td>
+            </tr>
+            <?php
+            }
+      }
+      ?>
+    </table>
+  </body>
+  </html>
